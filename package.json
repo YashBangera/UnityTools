@@ -1,0 +1,15 @@
+{
+  "name": "com.yashbangera.scriptableobjectframework",
+  "version": "0.0.1",
+  "displayName": "ScriptableObjectFramework",
+  "description": "Scriptable Objecct Framework",
+  "documentationUrl": "https://example.com/",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "https://example.com/licensing.html",
+  "keywords": [],
+  "author": {
+    "name": "Yash Bangera",
+    "email": "yash.h.bangera@gmail.com",
+    "url": "https://www.yashbangera.com"
+  }
+}
