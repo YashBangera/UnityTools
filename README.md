@@ -91,7 +91,7 @@ If you wish to make edits or contribute to this custom Unity package, you'll nee
 WIP
 
 ## Usage
-WIP
+WIP Coming Soon
 
 ## Contributing
 Creating an Issue
