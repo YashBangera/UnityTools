@@ -68,32 +68,4 @@ namespace UnityTools.ScriptableObjectFramework
         #endregion Events
 
     }
-
-    //List of ScriptableObject Collections
-
-    [CreateAssetMenu(fileName = "FloatCollectionSO", menuName = "UnityTools/ScriptableObjects/Collections/FloatCollectionSO", order = 1)]
-    public class FloatCollectionSO : BaseCollectionSO<float> { }
-
-    [CreateAssetMenu(fileName = "IntCollectionSO", menuName = "UnityTools/ScriptableObjects/Collections/IntCollectionSO", order = 1)]
-    public class IntCollectionSO : BaseCollectionSO<int> { }
-
-    [CreateAssetMenu(fileName = "StringCollectionSO", menuName = "UnityTools/ScriptableObjects/Collections/StringCollectionSO", order = 1)]
-    public class StringCollectionSO : BaseCollectionSO<string> { }
-
-    [CreateAssetMenu(fileName = "BoolCollectionSO", menuName = "UnityTools/ScriptableObjects/Collections/BoolCollectionSO", order = 1)]
-    public class BoolCollectionSO : BaseCollectionSO<bool> { }
-
-    [CreateAssetMenu(fileName = "Vector2CollectionSO", menuName = "UnityTools/ScriptableObjects/Collections/Vector2CollectionSO", order = 1)]
-    public class Vector2CollectionSO : BaseCollectionSO<Vector2> { }
-
-    [CreateAssetMenu(fileName = "Vector3CollectionSO", menuName = "UnityTools/ScriptableObjects/Collections/Vector3CollectionSO", order = 1)]
-    public class Vector3CollectionSO : BaseCollectionSO<Vector3> { }
-
-    [CreateAssetMenu(fileName = "GameObjectCollection", menuName = "UnityTools/ScriptableObjects/Collections/GameObjectCollectionSO", order = 1)]
-    public class GameObjectCollectionSO : BaseCollectionSO<GameObject> { }
-
-    [CreateAssetMenu(fileName = "Texture2DCollection", menuName = "UnityTools/ScriptableObjects/Collections/Texture2DCollectionSO", order = 1)]
-    public class Texture2DCollectionSO : BaseCollectionSO<Texture2D> { }
 }
-
-
