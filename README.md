@@ -88,13 +88,27 @@ If you wish to make edits or contribute to this custom Unity package, you'll nee
    - If you want to contribute your changes to the original repository, create a pull request on GitHub. This allows the repository maintainers to review and merge your changes. Visit your repository's GitHub page, and you should see an option to create a pull request.
 
 ## Features
-(Include a section describing the features of your custom Unity package.)
+WIP
 
 ## Usage
-(Provide instructions on how to use the tools and framework within the Unity editor and in your scripts. Include examples and code samples if possible.)
+WIP
 
 ## Contributing
-(Explain how others can contribute to your custom Unity package if you welcome contributions. This might include instructions for forking the repository, making changes, and submitting pull requests.)
+Creating an Issue
+
+To create an issue:
+
+Navigate to the Issues Page:
+
+1. **Go to the "Issues" tab on the GitHub repository's page.**
+   -Click on "New Issue":
+   -Click the green "New Issue" button.
+2. **Fill in the Details:**
+   -Provide all the required information following the guidelines mentioned above.
+3. **Submit the Issue:**
+   -After filling in the details, click the "Submit new issue" button to create the issue.
+4. **Engage in Discussion:**
+   -After creating the issue, engage in any further discussion with maintainers and contributors regarding the problem. Be responsive to requests for additional information or clarification.
 
 ## License
 This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute the code according to the terms of the MIT License.
