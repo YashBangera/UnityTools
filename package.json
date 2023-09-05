@@ -1,11 +1,11 @@
 {
-  "name": "com.yashbangera.scriptableobjectframework",
+  "name": "com.ybdev.unitytools",
   "version": "0.0.1",
-  "displayName": "ScriptableObjectFramework",
-  "description": "Scriptable Objecct Framework",
-  "documentationUrl": "https://example.com/",
+  "displayName": "Unity Tools",
+  "description": "Custom Unity Tools & Frameworks",
+  "documentationUrl": "https://github.com/YashBangera/UnityTools/wiki",
   "changelogUrl": "https://example.com/changelog.html",
-  "licensesUrl": "https://example.com/licensing.html",
+  "licensesUrl": "https://github.com/YashBangera/UnityTools/blob/main/LICENSE",
   "keywords": [],
   "author": {
     "name": "Yash Bangera",
