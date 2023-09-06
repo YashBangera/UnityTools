@@ -39,7 +39,6 @@ namespace UnityTools.ScriptableObjects.Editor
                 }
             }
         }
-
         void OnGUI()
         {
             if (GUILayout.Button("Refresh List"))
@@ -74,12 +73,14 @@ namespace UnityTools.ScriptableObjects.Editor
                 foreach (LocalizedString.SupportedLocale locale in Enum.GetValues(typeof(LocalizedString.SupportedLocale)))
                 {
                     SerializedProperty matchingPair = null;
+                    int matchingPairIndex = -1;
                     for (int i = 0; i < pairs.arraySize; i++)
                     {
                         SerializedProperty pair = pairs.GetArrayElementAtIndex(i);
                         if (pair.FindPropertyRelative("locale").enumValueIndex == (int)locale)
                         {
                             matchingPair = pair;
+                            matchingPairIndex = i;
                             break;
                         }
                     }
@@ -90,7 +91,15 @@ namespace UnityTools.ScriptableObjects.Editor
                     }
                     else
                     {
-                        EditorGUILayout.LabelField("-", GUILayout.Width(150));
+                        GUILayout.Space(75); // Add spacing to align the button
+                        if (GUILayout.Button("+", GUILayout.Width(30))) // Add button for the locale
+                        {
+                            pairs.InsertArrayElementAtIndex(pairs.arraySize);
+                            SerializedProperty newPair = pairs.GetArrayElementAtIndex(pairs.arraySize - 1);
+                            newPair.FindPropertyRelative("locale").enumValueIndex = (int)locale;
+                            newPair.FindPropertyRelative("localizedString").stringValue = "";
+                        }
+                        GUILayout.Space(45); // Add more spacing to align the button with the label
                     }
                 }
                 EditorGUILayout.EndHorizontal();
@@ -106,6 +115,8 @@ namespace UnityTools.ScriptableObjects.Editor
 
             EditorGUILayout.EndScrollView();
         }
+
+
 
 
 
