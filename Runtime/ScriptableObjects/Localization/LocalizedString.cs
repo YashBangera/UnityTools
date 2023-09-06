@@ -7,11 +7,10 @@ namespace UnityTools.ScriptableObjects
     /// <summary>
     /// Represents a string that can be localized based on the selected locale.
     /// </summary>
-    [CreateAssetMenu(fileName = "LocalizedString", menuName = "Unity Tools/Scriptable Objects/Localization/Localized String")]
+    [CreateAssetMenu(fileName = "LocalizedString", menuName = "UnityTools/Scriptable Objects/Localization/Localized String")]
     public class LocalizedString : ScriptableObject
     {
         #region Data
-
         public enum SupportedLocale
         {
             EN_US,   // U.S. English
@@ -20,7 +19,6 @@ namespace UnityTools.ScriptableObjects
             ES_MX    // Mexican Spanish
             // ... Add any other locales you support
         }
-
         [System.Serializable]
         public struct LocaleStringPair
         {

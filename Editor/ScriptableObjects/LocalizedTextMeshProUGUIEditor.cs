@@ -3,27 +3,85 @@ using TMPro;
 using UnityTools.ScriptableObjects;
 using UnityEngine;
 
-[CustomEditor(typeof(LocalizedTextMeshProUGUI), true), CanEditMultipleObjects]
-public class LocalizedTextMeshProUGUIEditor : TMPro.EditorUtilities.TMP_EditorPanelUI
+namespace UnityTools.ScriptableObjects.Editor
 {
-    SerializedProperty localizedStringProp;
-
-    protected override void OnEnable()
+    [CustomEditor(typeof(LocalizedTextMeshProUGUI), true), CanEditMultipleObjects]
+    public class LocalizedTextMeshProUGUIEditor : TMPro.EditorUtilities.TMP_EditorPanelUI
     {
-        // Get the localizedString property
-        localizedStringProp = serializedObject.FindProperty("m_localizedString");
+        SerializedProperty localizedStringProp;
+        bool showDetails = false;
 
-        // Call the base OnEnable to ensure TMP's properties are also initialized
-        base.OnEnable();
-    }
+        protected override void OnEnable()
+        {
+            localizedStringProp = serializedObject.FindProperty("m_localizedString");
+            base.OnEnable();
+        }
 
-    public override void OnInspectorGUI()
-    {
-        // Draw the localizedString field
-        EditorGUILayout.PropertyField(localizedStringProp, new GUIContent("Localized String"));
-        // Draw the TMP inspector first
-        base.OnInspectorGUI();
-        // Apply changes to the serializedProperty
-        serializedObject.ApplyModifiedProperties();
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+
+            // Draw the LocalizedString field first
+            Object currentLocalizedString = localizedStringProp.objectReferenceValue;
+            Object newLocalizedString = EditorGUILayout.ObjectField("Localized String", currentLocalizedString, typeof(LocalizedString), false);
+
+            if (newLocalizedString != currentLocalizedString)
+            {
+                localizedStringProp.objectReferenceValue = newLocalizedString;
+                serializedObject.ApplyModifiedProperties(); // Ensure we immediately apply this change
+            }
+
+
+            // If localization is not set, draw the main settings which includes the text field
+            if (localizedStringProp.objectReferenceValue == null)
+            {
+                base.OnInspectorGUI(); // This will draw everything from the original TMP_EditorPanelUI
+            }
+            else
+            {
+                // Now draw the localization pairs, like before
+                if (localizedStringProp.objectReferenceValue != null)
+                {
+                    SerializedObject localizedStringSO = new SerializedObject(localizedStringProp.objectReferenceValue);
+                    SerializedProperty pairs = localizedStringSO.FindProperty("m_localizedStrings");
+
+                    for (int i = 0; i < pairs.arraySize; i++)
+                    {
+                        SerializedProperty pair = pairs.GetArrayElementAtIndex(i);
+                        SerializedProperty locale = pair.FindPropertyRelative("locale");
+                        SerializedProperty localizedStr = pair.FindPropertyRelative("localizedString");
+
+                        EditorGUILayout.PropertyField(locale);
+                        EditorGUILayout.PropertyField(localizedStr);
+
+                        GUILayout.BeginHorizontal();
+                        if (GUILayout.Button("Remove"))
+                        {
+                            pairs.DeleteArrayElementAtIndex(i);
+                            break;  // Exit the loop, as the array content has changed
+                        }
+                        GUILayout.EndHorizontal();
+                    }
+
+                    if (GUILayout.Button("Add New Pair"))
+                    {
+                        pairs.InsertArrayElementAtIndex(pairs.arraySize);
+                    }
+
+                    localizedStringSO.ApplyModifiedProperties();
+
+
+                    // If localization is set, manually draw all other components excluding the text field
+
+                    DrawMainSettings();
+
+                    DrawExtraSettings();
+                }
+            }
+
+            serializedObject.ApplyModifiedProperties();
+        }
+
+
     }
 }

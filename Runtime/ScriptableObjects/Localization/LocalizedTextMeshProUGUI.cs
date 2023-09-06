@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using static UnityTools.ScriptableObjects.LocalizedString;
 
 namespace UnityTools.ScriptableObjects
 {
@@ -18,7 +17,7 @@ namespace UnityTools.ScriptableObjects
         // Serialized
         
         [SerializeField] private LocalizedString m_localizedString;
-        private SupportedLocale m_currentLocale = SupportedLocale.EN_US;
+        private LocalizedString.SupportedLocale m_currentLocale = LocalizedString.SupportedLocale.EN_US;
 
         // Non-Serialized
         #endregion Private Fields
@@ -60,10 +59,10 @@ namespace UnityTools.ScriptableObjects
         /// <summary>
         /// Updates the localized text to match the selected locale.
         /// </summary>
-        /// <param name="newLocale">New locale to set.</param>
-        public void UpdateLocalization(SupportedLocale newLocale)
+        /// <param name="i_newLocale">New locale to set.</param>
+        public void UpdateLocalization(LocalizedString.SupportedLocale i_newLocale)
         {
-            m_currentLocale = newLocale;
+            m_currentLocale = i_newLocale;
 
             // Forces a mesh update, which in turn calls the 'text' getter again.
             ForceMeshUpdate();
