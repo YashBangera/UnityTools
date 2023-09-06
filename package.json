@@ -11,5 +11,8 @@
     "name": "Yash Bangera",
     "email": "yash.h.bangera@gmail.com",
     "url": "https://www.yashbangera.com"
+  },
+  "dependencies": {
+    "com.unity.textmeshpro": ""
   }
 }
