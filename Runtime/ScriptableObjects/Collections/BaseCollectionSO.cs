@@ -1,71 +1,80 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace UnityTools.ScriptableObjects
 {
-    //Base scriptable object for collections
-    public class BaseCollectionSO<T> : ScriptableObject
-    {
+	// Base scriptable object for collections
+	public class BaseCollectionSO<T> : ScriptableObject
+	{
+		#region Private Fields
 
-        #region Private Fields
-        //Serialized
-        [SerializeField] private List<T> _defaultCollection = new List<T>();
-        [SerializeField] private List<T> _currentCollection = new List<T>();
-        [SerializeField] private bool _isPersistent = false;
-        //Non-Serialized
-        #endregion Private Fields
+		// Serialized
+		[SerializeField] private List<T> _defaultCollection = new List<T>();
+		[SerializeField] private List<T> _currentCollection = new List<T>();
+		[SerializeField] private bool _isPersistent = false;
 
-        #region Public Fields
-        #endregion Public Fields
+		// Non-Serialized
+		#endregion Private Fields
 
-        #region Monobehavior Methods
+		#region Public Fields
+		#endregion Public Fields
 
-        protected virtual void OnEnable()
-        {
-            _currentCollection = new List<T>(_defaultCollection);
-        }
+		#region Monobehavior Methods
 
-        protected virtual void OnDisable()
-        {
-            _currentCollection.Clear();
-        }
+		protected virtual void OnEnable()
+		{
+			_currentCollection = new List<T>(_defaultCollection);
+		}
 
-        #endregion Monobehavior Methods
+		protected virtual void OnDisable()
+		{
+			_currentCollection.Clear();
+		}
 
-        #region Private Methods
-        #endregion Private Methods
+		#endregion Monobehavior Methods
 
-        #region Public Methods
+		#region Private Methods
+		#endregion Private Methods
 
-        public void Add(T item)
-        {
-            if(_isPersistent)
-            {
-                Debug.LogWarning("Attempting to add to a persistent collection, disable _isPersistent");
-                return;
-            }
-            _currentCollection.Add(item);
-        }
+		#region Public Methods
 
-        public List<T> GetCollection()
-        {
-            //If persistent, return a new list of the default collection, so that the list is not changed
-            if(_isPersistent)
-            {
-                return new List<T> (_defaultCollection);
-            }
+		[System.Serializable]
+		public class CollectionChangedEvent : UnityEvent { }
 
-            return _currentCollection;
-        }
+		[SerializeField] private CollectionChangedEvent _onCollectionChanged = new CollectionChangedEvent();
 
-        #endregion Public Methods
+		public CollectionChangedEvent OnCollectionChanged
+		{
+			get { return _onCollectionChanged; }
+		}
 
-        #region Coroutines
-        #endregion Coroutines
+		public void Add(T item)
+		{
+			if (_isPersistent)
+			{
+				Debug.LogWarning("Attempting to add to a persistent collection, disable _isPersistent");
+				return;
+			}
 
-        #region Events
-        #endregion Events
+			_currentCollection.Add(item);
 
-    }
+			// Notify listeners that the collection has changed
+			_onCollectionChanged.Invoke();
+		}
+
+		public List<T> GetCollection()
+		{
+			// If persistent, return a new list of the default collection, so that the list is not changed
+			if (_isPersistent)
+			{
+				return new List<T>(_defaultCollection);
+			}
+
+			return _currentCollection;
+		}
+
+		#endregion Public Methods
+	}
 }

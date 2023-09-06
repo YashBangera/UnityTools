@@ -1,73 +1,75 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace UnityTools.ScriptableObjects
 {
-    public class BaseValueSO<T> : ScriptableObject
-    {
+	public class BaseValueSO<T> : ScriptableObject
+	{
+		#region Private Fields
 
-        #region Private Fields
+		[SerializeField] protected T _defaultValue;
+		[SerializeField] protected T _currentValue;
+		[SerializeField] protected bool _isPersistent;
 
-        [SerializeField] protected T _defaultValue;
-        [SerializeField] protected T _currentValue;
-        [SerializeField] protected bool _isPersistent;
+		#endregion Private Fields
 
-        #endregion Private Fields
+		#region Public Fields
+		#endregion Public Fields
 
-        #region Public Fields
-        #endregion Public Fields
+		#region Monobehavior Methods
 
-        #region Monobehavior Methods
+		protected void OnEnable()
+		{
+			_currentValue = _defaultValue;
+		}
 
-        protected void OnEnable()
-        {
-            _currentValue = _defaultValue;
-        }
+		protected void OnDisable()
+		{
+			_currentValue = default;
+		}
 
-        protected void OnDisable()
-        {
-            _currentValue = default;
-        }
+		#endregion Monobehavior Methods
 
-        #endregion Monobehavior Methods
+		#region Public Methods
 
-        #region Private Methods
-        #endregion Private Methods
+		[System.Serializable]
+		public class ValueChangedEvent : UnityEvent<T> { }
 
-        #region Public Methods
+		[SerializeField] private ValueChangedEvent _onValueChanged = new ValueChangedEvent();
 
-        public virtual void SetValue(T i_value)
-        {
-            if (_isPersistent)
-            {
-                Debug.LogWarning("Persistent values cannot be changed at runtime, Set _isPersistent to false");
-                return;
-            }
+		public ValueChangedEvent OnValueChanged
+		{
+			get { return _onValueChanged; }
+		}
 
-            _currentValue = i_value;
-        }
+		public virtual void SetValue(T i_value)
+		{
+			if (_isPersistent)
+			{
+				Debug.LogWarning("Persistent values cannot be changed at runtime, Set _isPersistent to false");
+				return;
+			}
 
-        public virtual T GetCurrentValue()
-        {
-            return _currentValue;
-        }
-        public virtual T GetDefaultValue()
-        {
-            return _defaultValue;
-        }
-        public virtual void ResetValue()
-        {
-            _currentValue = _defaultValue;
-        }
+			if (!_currentValue.Equals(i_value))
+			{
+				_currentValue = i_value;
+				_onValueChanged.Invoke(_currentValue);
+			}
+		}
 
-        #endregion Public Methods
+		public virtual T GetCurrentValue()
+		{
+			return _currentValue;
+		}
+		public virtual T GetDefaultValue()
+		{
+			return _defaultValue;
+		}
+		public virtual void ResetValue()
+		{
+			SetValue(_defaultValue);
+		}
 
-        #region Coroutines
-        #endregion Coroutines
-
-        #region Events
-        #endregion Events
-
-    }
+		#endregion Public Methods
+	}
 }
