@@ -17,7 +17,7 @@ namespace UnityTools.ScriptableObjects
         // Serialized
         
         [SerializeField] private LocalizedString m_localizedString;
-        private LocalizedString.SupportedLocale m_currentLocale = LocalizedString.SupportedLocale.EN_US;
+        [SerializeField] private LocalizedString.SupportedLocale m_currentLocale = LocalizedString.SupportedLocale.EN_US;
 
         // Non-Serialized
         #endregion Private Fields

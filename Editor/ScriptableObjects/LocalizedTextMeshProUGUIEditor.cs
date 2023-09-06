@@ -9,11 +9,14 @@ namespace UnityTools.ScriptableObjects.Editor
     public class LocalizedTextMeshProUGUIEditor : TMPro.EditorUtilities.TMP_EditorPanelUI
     {
         SerializedProperty localizedStringProp;
+        SerializedProperty currentLocaleProp;
+
         bool showDetails = false;
 
         protected override void OnEnable()
         {
             localizedStringProp = serializedObject.FindProperty("m_localizedString");
+            currentLocaleProp = serializedObject.FindProperty("m_currentLocale");
             base.OnEnable();
         }
 
@@ -44,6 +47,16 @@ namespace UnityTools.ScriptableObjects.Editor
                 {
                     SerializedObject localizedStringSO = new SerializedObject(localizedStringProp.objectReferenceValue);
                     SerializedProperty pairs = localizedStringSO.FindProperty("m_localizedStrings");
+                    // Display the m_currentLocale as a read-only field
+                    if (currentLocaleProp != null)
+                    {
+                        EditorGUILayout.LabelField("Current Locale", currentLocaleProp.enumNames[currentLocaleProp.enumValueIndex]);
+                    }
+                    else
+                    {
+                        EditorGUILayout.LabelField("Error", "Cannot find the m_currentLocale property.");
+                    }
+
 
                     for (int i = 0; i < pairs.arraySize; i++)
                     {
