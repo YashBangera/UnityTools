@@ -53,7 +53,7 @@ namespace UnityTools.ScriptableObjects.Editor
                 EditorGUILayout.BeginVertical("box");
 
                 // Display a clickable reference to the ScriptableObject
-                EditorGUI.BeginDisabledGroup(true);  // Disables editing of this field
+                EditorGUI.BeginDisabledGroup(true);
                 EditorGUILayout.ObjectField("ScriptableObject:", localizedString, typeof(LocalizedString), false);
                 EditorGUI.EndDisabledGroup();
 
@@ -85,13 +85,31 @@ namespace UnityTools.ScriptableObjects.Editor
                         }
                     }
 
+                    EditorGUILayout.BeginVertical(GUILayout.Width(150)); // Adjust the width here
+
                     if (matchingPair != null)
                     {
-                        EditorGUILayout.PropertyField(matchingPair.FindPropertyRelative("localizedString"), GUIContent.none, GUILayout.Width(150));
+                        EditorGUILayout.BeginVertical(); 
+
+                        if (GUILayout.Button("-", GUILayout.Width(30))) // Add "-" button for removing the field
+                        {
+                            pairs.DeleteArrayElementAtIndex(matchingPairIndex);
+
+                            // Check if matchingPairIndex is still valid
+                            if (matchingPairIndex >= 0 && matchingPairIndex < pairs.arraySize)
+                            {
+                                EditorGUILayout.PropertyField(pairs.GetArrayElementAtIndex(matchingPairIndex).FindPropertyRelative("localizedString"), GUIContent.none, GUILayout.Width(150));
+                            }
+                            EditorGUILayout.EndVertical(); 
+                            EditorGUILayout.EndVertical();
+                            break; // Exit the loop after deleting to avoid further processing
+                        }
+
+                        EditorGUILayout.PropertyField(matchingPair.FindPropertyRelative("localizedString"), GUIContent.none, GUILayout.ExpandWidth(true)); // Allow the field to expand
+                        EditorGUILayout.EndHorizontal(); // End the horizontal group
                     }
                     else
                     {
-                        GUILayout.Space(75); // Add spacing to align the button
                         if (GUILayout.Button("+", GUILayout.Width(30))) // Add button for the locale
                         {
                             pairs.InsertArrayElementAtIndex(pairs.arraySize);
@@ -99,8 +117,9 @@ namespace UnityTools.ScriptableObjects.Editor
                             newPair.FindPropertyRelative("locale").enumValueIndex = (int)locale;
                             newPair.FindPropertyRelative("localizedString").stringValue = "";
                         }
-                        GUILayout.Space(45); // Add more spacing to align the button with the label
                     }
+
+                    EditorGUILayout.EndVertical();
                 }
                 EditorGUILayout.EndHorizontal();
 
@@ -115,17 +134,6 @@ namespace UnityTools.ScriptableObjects.Editor
 
             EditorGUILayout.EndScrollView();
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
