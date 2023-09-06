@@ -17,7 +17,22 @@ namespace UnityTools.ScriptableObjects.Editor
         {
             localizedStringProp = serializedObject.FindProperty("m_localizedString");
             currentLocaleProp = serializedObject.FindProperty("m_currentLocale");
+            EditorApplication.update += UpdateLocalizedText;
+
             base.OnEnable();
+        }
+
+        protected override void OnDisable()
+        {
+            EditorApplication.update -= UpdateLocalizedText;
+            base.OnDisable();
+        }
+
+        private void UpdateLocalizedText()
+        {
+            var targetComponent = (LocalizedTextMeshProUGUI)target;
+            targetComponent.RefreshLocalizedText();
+            Repaint();
         }
 
         public override void OnInspectorGUI()
@@ -34,67 +49,64 @@ namespace UnityTools.ScriptableObjects.Editor
                 serializedObject.ApplyModifiedProperties(); // Ensure we immediately apply this change
             }
 
-
             // If localization is not set, draw the main settings which includes the text field
             if (localizedStringProp.objectReferenceValue == null)
             {
-                base.OnInspectorGUI(); // This will draw everything from the original TMP_EditorPanelUI
+                base.OnInspectorGUI();
             }
             else
             {
-                // Now draw the localization pairs, like before
-                if (localizedStringProp.objectReferenceValue != null)
+                SerializedObject localizedStringSO = new SerializedObject(localizedStringProp.objectReferenceValue);
+                
+                EditorGUI.BeginChangeCheck(); // Check for changes
+
+                // Display the m_currentLocale as a read-only field
+                if (currentLocaleProp != null)
                 {
-                    SerializedObject localizedStringSO = new SerializedObject(localizedStringProp.objectReferenceValue);
-                    SerializedProperty pairs = localizedStringSO.FindProperty("m_localizedStrings");
-                    // Display the m_currentLocale as a read-only field
-                    if (currentLocaleProp != null)
+                    EditorGUILayout.LabelField("Current Locale", currentLocaleProp.enumNames[currentLocaleProp.enumValueIndex]);
+                }
+                else
+                {
+                    EditorGUILayout.LabelField("Error", "Cannot find the m_currentLocale property.");
+                }
+
+                SerializedProperty pairs = localizedStringSO.FindProperty("m_localizedStrings");
+
+                for (int i = 0; i < pairs.arraySize; i++)
+                {
+                    SerializedProperty pair = pairs.GetArrayElementAtIndex(i);
+                    SerializedProperty locale = pair.FindPropertyRelative("locale");
+                    SerializedProperty localizedStr = pair.FindPropertyRelative("localizedString");
+
+                    EditorGUILayout.PropertyField(locale);
+                    EditorGUILayout.PropertyField(localizedStr);
+
+                    GUILayout.BeginHorizontal();
+                    if (GUILayout.Button("Remove"))
                     {
-                        EditorGUILayout.LabelField("Current Locale", currentLocaleProp.enumNames[currentLocaleProp.enumValueIndex]);
+                        pairs.DeleteArrayElementAtIndex(i);
+                        break;  // Exit the loop, as the array content has changed
                     }
-                    else
-                    {
-                        EditorGUILayout.LabelField("Error", "Cannot find the m_currentLocale property.");
-                    }
+                    GUILayout.EndHorizontal();
+                }
 
+                if (GUILayout.Button("Add New Pair"))
+                {
+                    pairs.InsertArrayElementAtIndex(pairs.arraySize);
+                }
 
-                    for (int i = 0; i < pairs.arraySize; i++)
-                    {
-                        SerializedProperty pair = pairs.GetArrayElementAtIndex(i);
-                        SerializedProperty locale = pair.FindPropertyRelative("locale");
-                        SerializedProperty localizedStr = pair.FindPropertyRelative("localizedString");
+                DrawMainSettings();
+                DrawExtraSettings();
 
-                        EditorGUILayout.PropertyField(locale);
-                        EditorGUILayout.PropertyField(localizedStr);
-
-                        GUILayout.BeginHorizontal();
-                        if (GUILayout.Button("Remove"))
-                        {
-                            pairs.DeleteArrayElementAtIndex(i);
-                            break;  // Exit the loop, as the array content has changed
-                        }
-                        GUILayout.EndHorizontal();
-                    }
-
-                    if (GUILayout.Button("Add New Pair"))
-                    {
-                        pairs.InsertArrayElementAtIndex(pairs.arraySize);
-                    }
-
+                // If there were changes, apply them and refresh the text
+                if (EditorGUI.EndChangeCheck())
+                {
                     localizedStringSO.ApplyModifiedProperties();
-
-
-                    // If localization is set, manually draw all other components excluding the text field
-
-                    DrawMainSettings();
-
-                    DrawExtraSettings();
+                    ((LocalizedTextMeshProUGUI)target).RefreshLocalizedText();
                 }
             }
 
             serializedObject.ApplyModifiedProperties();
         }
-
-
     }
 }

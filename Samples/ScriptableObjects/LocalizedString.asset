@@ -15,3 +15,5 @@ MonoBehaviour:
   m_localizedStrings:
   - locale: 0
     localizedString: Hello
+  - locale: 2
+    localizedString: Hola
