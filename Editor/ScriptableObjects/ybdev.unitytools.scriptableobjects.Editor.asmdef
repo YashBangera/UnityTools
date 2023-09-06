@@ -1,0 +1,16 @@
+{
+    "name": "ybdev.unitytools.scriptableobjects.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0fda99a682afbd74e9acac03654a2024"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
