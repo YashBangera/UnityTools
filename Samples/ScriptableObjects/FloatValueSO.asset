@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5430f15cf61d8cf42b7c424a2dae58bf, type: 3}
   m_Name: FloatValueSO
   m_EditorClassIdentifier: 
-  _defaultValue: 0
-  _currentValue: 0
+  _defaultValue: 34
+  _currentValue: 34
   _isPersistent: 0
   _onValueChanged:
     m_PersistentCalls:

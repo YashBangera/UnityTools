@@ -9,16 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93206ec78b3bea4ca0230b50d1666e9, type: 3}
-  m_Name: StringCollectionSO
+  m_Script: {fileID: 11500000, guid: 150a4dd34c63dc243a6a0b3843eb7d07, type: 3}
+  m_Name: New Event SO
   m_EditorClassIdentifier: 
-  _defaultCollection:
-  - 2323
-  - dfdsf
-  _currentCollection:
-  - 2323
-  - dfdsf
-  _isPersistent: 1
-  _onCollectionChanged:
-    m_PersistentCalls:
-      m_Calls: []
+  m_printLogs: 1
