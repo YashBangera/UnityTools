@@ -1,0 +1,16 @@
+{
+    "name": "ybdev.unitytools.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0eb28716f9eeefa44b002f4110891380"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
