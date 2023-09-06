@@ -1,7 +1,7 @@
 {
     "name": "ybdev.unitytools",
     "rootNamespace": "",
-    "references": [],
+    "references": ["Unity.TextMeshPro"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
