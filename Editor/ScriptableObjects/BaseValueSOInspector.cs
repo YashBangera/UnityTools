@@ -12,10 +12,12 @@ namespace UnityTools.ScriptableObjects.Editor
 
 			SerializedProperty defaultValueProperty = serializedObject.FindProperty("_defaultValue");
 			SerializedProperty isPersistentProperty = serializedObject.FindProperty("_isPersistent");
+			SerializedProperty onCollectionChanged = serializedObject.FindProperty("_onValueChanged");
 
 			// Display the default value and isPersistent fields.
 			EditorGUILayout.PropertyField(defaultValueProperty, new GUIContent("Default Value"));
 			EditorGUILayout.PropertyField(isPersistentProperty, new GUIContent("Is Persistent"));
+
 
 			// Display the currentValue based on its actual type.
 			SerializedProperty currentValueProperty = serializedObject.FindProperty("_currentValue");
@@ -32,6 +34,9 @@ namespace UnityTools.ScriptableObjects.Editor
 				EditorGUILayout.PropertyField(currentValueProperty, new GUIContent("Current Value"));
 				EditorGUI.EndDisabledGroup();
 			}
+
+			EditorGUILayout.PropertyField(onCollectionChanged, new GUIContent("On Value Changed"));
+
 
 			if (EditorGUI.EndChangeCheck())
 			{

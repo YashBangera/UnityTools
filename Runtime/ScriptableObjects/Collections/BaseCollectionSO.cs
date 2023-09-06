@@ -40,12 +40,10 @@ namespace UnityTools.ScriptableObjects
 
 		#region Public Methods
 
-		[System.Serializable]
-		public class CollectionChangedEvent : UnityEvent { }
+		
+		[SerializeField] private UnityEvent _onCollectionChanged;
 
-		[SerializeField] private CollectionChangedEvent _onCollectionChanged = new CollectionChangedEvent();
-
-		public CollectionChangedEvent OnCollectionChanged
+		public UnityEvent OnCollectionChanged
 		{
 			get { return _onCollectionChanged; }
 		}

@@ -12,6 +12,7 @@ namespace UnityTools.ScriptableObjects.Editor
 
 			SerializedProperty defaultCollectionProperty = serializedObject.FindProperty("_defaultCollection");
 			SerializedProperty isPersistentProperty = serializedObject.FindProperty("_isPersistent");
+			SerializedProperty onCollectionChanged = serializedObject.FindProperty("_onCollectionChanged");
 
 			// Display the default collection and isPersistent fields.
 			EditorGUILayout.PropertyField(defaultCollectionProperty, new GUIContent("Default Collection"));
@@ -31,6 +32,10 @@ namespace UnityTools.ScriptableObjects.Editor
 			EditorGUILayout.PropertyField(currentCollectionProperty, new GUIContent("Current Collection"), true);
 			EditorGUI.EndDisabledGroup();
 
+
+			EditorGUILayout.PropertyField(onCollectionChanged, new GUIContent("On Collection Changed"));
+
+			
 			if (EditorGUI.EndChangeCheck())
 			{
 				serializedObject.ApplyModifiedProperties();
