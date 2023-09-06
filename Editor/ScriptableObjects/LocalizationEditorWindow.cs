@@ -62,9 +62,10 @@ namespace UnityTools.ScriptableObjects.Editor
 
                 // Table headers (Locales)
                 EditorGUILayout.BeginHorizontal();
+                
                 foreach (LocalizedString.SupportedLocale locale in Enum.GetValues(typeof(LocalizedString.SupportedLocale)))
                 {
-                    EditorGUILayout.LabelField(locale.ToString(), EditorStyles.boldLabel, GUILayout.Width(150));
+                    EditorGUILayout.LabelField(locale.ToString(), EditorStyles.centeredGreyMiniLabel, GUILayout.Width(200));
                 }
                 EditorGUILayout.EndHorizontal();
 
@@ -84,15 +85,15 @@ namespace UnityTools.ScriptableObjects.Editor
                             break;
                         }
                     }
-
-                    EditorGUILayout.BeginVertical(GUILayout.Width(150)); // Adjust the width here
+                    EditorGUILayout.BeginVertical(GUILayout.Width(200)); // Adjust the width here
 
                     if (matchingPair != null)
                     {
-                        EditorGUILayout.BeginVertical(); 
+                        EditorGUILayout.BeginVertical();
+                        EditorGUILayout.PropertyField(matchingPair.FindPropertyRelative("localizedString"), GUIContent.none, GUILayout.ExpandWidth(true), GUILayout.Height(100)); // Allow the field to expand
 
-                        if (GUILayout.Button("-", GUILayout.Width(30))) // Add "-" button for removing the field
-                        {
+                        if (GUILayout.Button("Remove Locale", GUILayout.Width(200))) // Add "-" button for removing the field
+                        {                           
                             pairs.DeleteArrayElementAtIndex(matchingPairIndex);
 
                             // Check if matchingPairIndex is still valid
@@ -105,12 +106,11 @@ namespace UnityTools.ScriptableObjects.Editor
                             break; // Exit the loop after deleting to avoid further processing
                         }
 
-                        EditorGUILayout.PropertyField(matchingPair.FindPropertyRelative("localizedString"), GUIContent.none, GUILayout.ExpandWidth(true)); // Allow the field to expand
                         EditorGUILayout.EndHorizontal(); // End the horizontal group
                     }
                     else
                     {
-                        if (GUILayout.Button("+", GUILayout.Width(30))) // Add button for the locale
+                        if (GUILayout.Button("Add Locale", GUILayout.Width(200))) // Add button for the locale
                         {
                             pairs.InsertArrayElementAtIndex(pairs.arraySize);
                             SerializedProperty newPair = pairs.GetArrayElementAtIndex(pairs.arraySize - 1);
