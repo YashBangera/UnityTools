@@ -16,23 +16,7 @@ namespace UnityTools.ScriptableObjects
 			// Create a new instance of the LocalizedTextMeshProUGUI script
 			var textObject = new GameObject("LocalizedTextMeshProUGUI");
 
-			// Create a new instance of the LocalizedString scriptable object
-			var localizedString = ScriptableObject.CreateInstance<LocalizedString>();
-			localizedString.name = "NewLocalizedString";
-
-			// Specify the path where the SO is created
-			string assetPath = EditorUtility.SaveFilePanelInProject("Save Localized String", "NewLocalizedString", "asset", "Please enter a name for the Localized String");
-
-			if (!string.IsNullOrEmpty(assetPath))
-			{
-				AssetDatabase.CreateAsset(localizedString, assetPath);
-				AssetDatabase.SaveAssets();
-				AssetDatabase.Refresh();
-
-				// Assign the LocalizedString to the LocalizedTextMeshProUGUI
-				var localizedText = textObject.AddComponent<LocalizedTextMeshProUGUI>();
-				localizedText.SetLocalizedString(localizedString);
-			}
+			var localizedText = textObject.AddComponent<LocalizedTextMeshProUGUI>();
 
 			// Record the changes and set the parent if a parent is selected
 			Undo.RecordObject(textObject.transform, "Create Localized Text");
@@ -47,8 +31,8 @@ namespace UnityTools.ScriptableObjects
 			// Focus on the newly created GameObject in the Hierarchy
 			Selection.activeGameObject = textObject;
 
-			// Select the newly created ScriptableObject in the Project view
-			Selection.activeObject = localizedString;
+			// Select the newly created GO in the Project view
+			Selection.activeObject = localizedText.gameObject;
 		}
 	}
 }
