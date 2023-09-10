@@ -43,6 +43,10 @@ namespace UnityTools.ScriptableObjects
         /// <returns>The localized string.</returns>
         public string GetString(SupportedLocale i_locale)
         {
+            if(m_localizedStrings == null)
+            {
+                return "N/A";
+            }
             foreach (var pair in m_localizedStrings)
             {
                 if (pair.locale == i_locale)
