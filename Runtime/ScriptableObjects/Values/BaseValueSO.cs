@@ -3,20 +3,12 @@ using UnityEngine.Events;
 
 namespace UnityTools.ScriptableObjects
 {
-	public class BaseValueSO<T> : ScriptableObject
+	public class BaseValueSO<T> : NonGenericBaseValueSO
 	{
-		#region Private Fields
-
 		[SerializeField] protected T _defaultValue;
 		[SerializeField] protected T _currentValue;
 		[SerializeField] protected bool _isPersistent;
-
-		#endregion Private Fields
-
-		#region Public Fields
-		#endregion Public Fields
-
-		#region Monobehavior Methods
+		[SerializeField] private UnityEvent<T> _onValueChanged = new UnityEvent<T>();
 
 		protected void OnEnable()
 		{
@@ -28,16 +20,7 @@ namespace UnityTools.ScriptableObjects
 			_currentValue = default;
 		}
 
-		#endregion Monobehavior Methods
-
-		#region Public Methods
-
-		[System.Serializable]
-		public class ValueChangedEvent : UnityEvent<T> { }
-
-		[SerializeField] private ValueChangedEvent _onValueChanged = new ValueChangedEvent();
-
-		public ValueChangedEvent OnValueChanged
+		public UnityEvent<T> OnValueChanged
 		{
 			get { return _onValueChanged; }
 		}
@@ -61,15 +44,15 @@ namespace UnityTools.ScriptableObjects
 		{
 			return _currentValue;
 		}
+
 		public virtual T GetDefaultValue()
 		{
 			return _defaultValue;
 		}
+
 		public virtual void ResetValue()
 		{
 			SetValue(_defaultValue);
 		}
-
-		#endregion Public Methods
 	}
 }
