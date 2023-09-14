@@ -13,7 +13,7 @@ namespace UnityTools.ScriptableObjects.Editor
 		protected int instanceID = -1;
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
-			instanceID = property.serializedObject.targetObject.GetInstanceID();
+			instanceID = GetInstanceID(property);
 
 			// Ensure we have a state for this instance ID
 			if (!foldoutStates.ContainsKey(instanceID))
@@ -102,6 +102,11 @@ namespace UnityTools.ScriptableObjects.Editor
 
 				EditorGUI.ObjectField(new Rect(objectFieldRect.x + 85f, objectFieldRect.y, objectFieldRect.width - 85f, EditorGUIUtility.singleLineHeight), property, GUIContent.none);
 			}
+		}
+
+		protected int GetInstanceID(SerializedProperty property)
+		{
+			return property.serializedObject.targetObject.GetInstanceID() + property.propertyPath.GetHashCode();
 		}
 	}
 }

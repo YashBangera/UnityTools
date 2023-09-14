@@ -61,8 +61,6 @@ namespace UnityTools.ScriptableObjects.Editor
 
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
-			int instanceID = property.serializedObject.targetObject.GetInstanceID();
-
 			// If it's not expanded or no object exists, only return the height of a single line.
 			bool objectExists = property.objectReferenceValue != null;
 			if (!foldoutStates.ContainsKey(instanceID) || !foldoutStates[instanceID] || !objectExists)
