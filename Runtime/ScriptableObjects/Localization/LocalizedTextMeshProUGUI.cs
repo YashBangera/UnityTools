@@ -16,13 +16,13 @@ namespace UnityTools.ScriptableObjects
 		{
 			RefreshLocalizedText();
 		}
-
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			base.OnValidate();
 			RefreshLocalizedText();
 		}
-
+#endif
 		public void SetLocalizedString(LocalizedString i_localizedString)
 		{
 			m_localizedString = i_localizedString;
