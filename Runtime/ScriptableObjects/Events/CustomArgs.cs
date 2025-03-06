@@ -29,7 +29,7 @@ namespace UnityTools.ScriptableObjects
             if (typeof(T) != m_params[i_index].GetType())
             {
                 Debug.LogError($"Passed Type '{m_params[i_index].GetType()}' doesn't match requested Type '{typeof(T)}'");
-                return default(T);
+                //return default(T);
             }
 
             return (T)m_params[i_index];
