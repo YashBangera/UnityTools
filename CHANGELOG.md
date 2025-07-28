@@ -5,6 +5,22 @@ All notable changes to the Scriptable Object Framework will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.3] - 2024-01-28
+
+### Added
+- Test assembly definitions for Runtime and Editor tests
+- Placeholder test files to ensure valid test assemblies
+- Root namespace definitions for all assembly definition files
+
+### Fixed
+- Fixed assembly definition files to properly support Unity Test Framework
+- Removed empty string from precompiledReferences in Runtime assembly definition
+- Updated Editor assembly definition to use assembly names instead of GUIDs
+- Added proper rootNamespace to all assembly definitions for better code organization
+
+### Changed
+- Updated package.json version to 0.0.3
+
 ## [0.0.2] - 2024-01-28
 
 ### Added
