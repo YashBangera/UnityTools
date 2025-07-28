@@ -1,12 +1,20 @@
 {
   "name": "com.ybdev.unitytools",
   "version": "0.0.1",
-  "displayName": "Unity Tools",
-  "description": "Custom Unity Tools & Frameworks",
+  "displayName": "Scriptable Object Framework",
+  "description": "A comprehensive Unity framework leveraging ScriptableObjects for modular game architecture",
   "documentationUrl": "https://github.com/YashBangera/UnityTools/wiki",
-  "changelogUrl": "https://example.com/changelog.html",
+  "changelogUrl": "https://github.com/YashBangera/UnityTools/blob/main/Packages/ScriptableObjectFramework/CHANGELOG.md",
   "licensesUrl": "https://github.com/YashBangera/UnityTools/blob/main/LICENSE",
-  "keywords": [],
+  "keywords": [
+    "scriptable-objects",
+    "unity",
+    "framework",
+    "events",
+    "architecture",
+    "modular",
+    "decoupled"
+  ],
   "author": {
     "name": "Yash Bangera",
     "email": "yash.h.bangera@gmail.com",
