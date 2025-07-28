@@ -1,6 +1,6 @@
 {
   "name": "com.ybdev.unitytools",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "displayName": "Scriptable Object Framework",
   "description": "A comprehensive Unity framework leveraging ScriptableObjects for modular game architecture",
   "documentationUrl": "https://github.com/YashBangera/UnityTools/wiki",
