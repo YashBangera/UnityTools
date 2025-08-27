@@ -65,6 +65,7 @@ namespace UnityTools.ScriptableObjects
         {
             CustomArgs args = new CustomArgs(i_params);
             ArgsWithTimestamp argsWithTimestamp = new ArgsWithTimestamp(args);
+            LogEvent(i_params);
 
             m_raisedArgs.Add(argsWithTimestamp);
 
@@ -73,7 +74,6 @@ namespace UnityTools.ScriptableObjects
                 OnRaised.Invoke(args);
             }
 
-            LogEvent(i_params);
         }
 
         public List<ArgsWithTimestamp> GetRaisedArgs()
